@@ -4,8 +4,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="display-5 fw-bold mb-3">Statistik Kelurahan Jelupang</h1>
-                    <p class="fs-5">Data statistik dan informasi demografis Kelurahan Jelupang</p>
+                    <h1 class="display-5 fw-bold mb-3">Statistik Kategori: {{ $kategori_data->nama }}</h1>
+                    <p class="fs-5">Data statistik kategori {{ $kategori_data->nama }} di Kelurahan Jelupang</p>
                 </div>
             </div>
         </div>
@@ -17,7 +17,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Statistik</li>
+                        <li class="breadcrumb-item"><a href="{{ route('statistik') }}">Statistik</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $kategori_data->nama }}</li>
                     </ol>
                 </nav>
             </div>
@@ -31,11 +32,11 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="list-group list-group-flush rounded-0">
-                            <a href="{{ route('statistik') }}" class="list-group-item list-group-item-action {{ !request()->route('slug') ? 'active' : '' }}">
+                            <a href="{{ route('statistik') }}" class="list-group-item list-group-item-action">
                                 <i class="bi bi-grid-fill me-2"></i> Semua Kategori
                             </a>
-                            @foreach($kategori as $kat)
-                            <a href="{{ route('statistik.kategori', $kat->slug) }}" class="list-group-item list-group-item-action {{ request()->route('slug') == $kat->slug ? 'active' : '' }}">
+                            @foreach($semua_kategori as $kat)
+                            <a href="{{ route('statistik.kategori', $kat->slug) }}" class="list-group-item list-group-item-action {{ $kategori_data->id == $kat->id ? 'active' : '' }}">
                                 <i class="bi bi-bar-chart-line me-2"></i> {{ $kat->nama }}
                             </a>
                             @endforeach
@@ -71,38 +72,14 @@
             <div class="col-lg-9">
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0"><i class="bi bi-bar-chart me-2"></i>Data Statistik</h5>
+                        <h5 class="card-title mb-0"><i class="bi bi-bar-chart me-2"></i>Statistik Kategori: {{ $kategori_data->nama }}</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row mb-4">
-                            <div class="col-md-4">
-                                <div class="card bg-primary bg-opacity-10 border-0">
-                                    <div class="card-body text-center">
-                                        <h6 class="text-primary">Jumlah Penduduk</h6>
-                                        <h2 class="display-6 fw-bold">12.345</h2>
-                                        <p class="small text-muted mb-0">Jiwa</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-success bg-opacity-10 border-0">
-                                    <div class="card-body text-center">
-                                        <h6 class="text-success">Luas Wilayah</h6>
-                                        <h2 class="display-6 fw-bold">5.67</h2>
-                                        <p class="small text-muted mb-0">km²</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card bg-info bg-opacity-10 border-0">
-                                    <div class="card-body text-center">
-                                        <h6 class="text-info">Jumlah RT/RW</h6>
-                                        <h2 class="display-6 fw-bold">45/9</h2>
-                                        <p class="small text-muted mb-0">RT/RW</p>
-                                    </div>
-                                </div>
-                            </div>
+                        @if($kategori_data->deskripsi)
+                        <div class="alert alert-info mb-4">
+                            <i class="bi bi-info-circle me-2"></i> {{ $kategori_data->deskripsi }}
                         </div>
+                        @endif
 
                         @if($statistik->count() > 0)
                             <div class="table-responsive">
@@ -113,7 +90,6 @@
                                             <th>Nilai</th>
                                             <th>Satuan</th>
                                             <th>Tahun</th>
-                                            <th>Kategori</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,11 +99,6 @@
                                             <td class="fw-bold">{{ number_format($item->nilai, 0, ',', '.') }}</td>
                                             <td>{{ $item->satuan }}</td>
                                             <td>{{ $item->tahun }}</td>
-                                            <td>
-                                                <span class="badge bg-primary">
-                                                    {{ $item->kategori->nama ?? 'Umum' }}
-                                                </span>
-                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -139,7 +110,7 @@
                             </div>
                         @else
                             <div class="alert alert-info">
-                                <i class="bi bi-info-circle me-2"></i> Belum ada data statistik yang tersedia.
+                                <i class="bi bi-info-circle me-2"></i> Belum ada data statistik untuk kategori ini.
                             </div>
                         @endif
                     </div>
@@ -147,35 +118,18 @@
 
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0"><i class="bi bi-pie-chart me-2"></i>Grafik Statistik</h5>
+                        <h5 class="card-title mb-0"><i class="bi bi-pie-chart me-2"></i>Grafik {{ $kategori_data->nama }}</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h6 class="card-title mb-0">Penduduk Berdasarkan Jenis Kelamin</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                            <img src="https://via.placeholder.com/400x300?text=Grafik+Penduduk" alt="Grafik Penduduk" class="img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
+                        @if($statistik->count() > 0)
+                            <div class="text-center py-4">
+                                <img src="https://via.placeholder.com/800x400?text=Grafik+{{ urlencode($kategori_data->nama) }}" alt="Grafik {{ $kategori_data->nama }}" class="img-fluid rounded shadow-sm">
                             </div>
-                            <div class="col-md-6">
-                                <div class="card border-0 shadow-sm mb-4">
-                                    <div class="card-header bg-light">
-                                        <h6 class="card-title mb-0">Penduduk Berdasarkan Usia</h6>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="text-center">
-                                            <img src="https://via.placeholder.com/400x300?text=Grafik+Usia" alt="Grafik Usia" class="img-fluid">
-                                        </div>
-                                    </div>
-                                </div>
+                        @else
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i> Belum ada data untuk ditampilkan dalam grafik.
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

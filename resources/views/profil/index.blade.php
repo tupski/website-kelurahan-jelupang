@@ -1,8 +1,19 @@
 <x-bootstrap-layout>
+    <!-- Header Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="display-5 fw-bold mb-3">Profil Kelurahan Jelupang</h1>
+                    <p class="fs-5">Informasi umum dan sejarah Kelurahan Jelupang</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container py-5">
         <div class="row">
             <div class="col-12">
-                <h1 class="display-5 fw-bold mb-4 text-primary">Profil Kelurahan Jelupang</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
@@ -146,7 +157,11 @@
                             </div>
                             <div class="col-md-8">
                                 <p class="card-text">
-                                    {{ $profil->sejarah ? Str::limit($profil->sejarah, 500) : 'Kelurahan Jelupang merupakan salah satu kelurahan yang berada di Kecamatan Serpong Utara, Kota Tangerang Selatan, Provinsi Banten. Kelurahan ini memiliki luas wilayah sekitar 5,67 km² dengan jumlah penduduk sekitar 12.345 jiwa. Kelurahan Jelupang terdiri dari 9 RW dan 45 RT.' }}
+                                    @if ($profil && $profil->sejarah)
+                                        {{ Str::limit($profil->sejarah, 500) }}
+                                    @else
+                                        Kelurahan Jelupang merupakan salah satu kelurahan yang berada di Kecamatan Serpong Utara, Kota Tangerang Selatan, Provinsi Banten. Kelurahan ini memiliki luas wilayah sekitar 5,67 km² dengan jumlah penduduk sekitar 12.345 jiwa. Kelurahan Jelupang terdiri dari 9 RW dan 45 RT.
+                                    @endif
                                 </p>
                                 <p class="card-text">
                                     Kelurahan Jelupang memiliki berbagai potensi, baik dari segi sumber daya alam maupun sumber daya manusia. Berbagai UMKM tumbuh dan berkembang di wilayah ini, menjadikan Kelurahan Jelupang sebagai salah satu pusat ekonomi mikro di Kota Tangerang Selatan.

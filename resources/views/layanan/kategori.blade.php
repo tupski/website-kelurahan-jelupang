@@ -4,8 +4,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <h1 class="display-5 fw-bold mb-3">Layanan Kelurahan Jelupang</h1>
-                    <p class="fs-5">Berbagai layanan publik yang tersedia untuk warga Kelurahan Jelupang</p>
+                    <h1 class="display-5 fw-bold mb-3">Layanan Kategori: {{ $kategori->nama }}</h1>
+                    <p class="fs-5">Daftar layanan publik kategori {{ $kategori->nama }} di Kelurahan Jelupang</p>
                 </div>
             </div>
         </div>
@@ -17,7 +17,8 @@
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Layanan</li>
+                        <li class="breadcrumb-item"><a href="{{ route('layanan') }}">Layanan</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $kategori->nama }}</li>
                     </ol>
                 </nav>
             </div>
@@ -31,11 +32,11 @@
                     </div>
                     <div class="card-body p-0">
                         <div class="list-group list-group-flush rounded-0">
-                            <a href="{{ route('layanan') }}" class="list-group-item list-group-item-action {{ !request()->route('slug') ? 'active' : '' }}">
+                            <a href="{{ route('layanan') }}" class="list-group-item list-group-item-action">
                                 <i class="bi bi-grid-fill me-2"></i> Semua Kategori
                             </a>
-                            @foreach($kategori as $kat)
-                            <a href="{{ route('layanan.kategori', $kat->slug) }}" class="list-group-item list-group-item-action {{ request()->route('slug') == $kat->slug ? 'active' : '' }}">
+                            @foreach($semua_kategori as $kat)
+                            <a href="{{ route('layanan.kategori', $kat->slug) }}" class="list-group-item list-group-item-action {{ $kategori->id == $kat->id ? 'active' : '' }}">
                                 <i class="bi {{ $kat->ikon ?? 'bi-tag' }} me-2"></i> {{ $kat->nama }}
                             </a>
                             @endforeach
@@ -71,9 +72,15 @@
             <div class="col-lg-9">
                 <div class="card shadow-sm mb-4">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0"><i class="bi bi-file-earmark-text me-2"></i>Daftar Layanan</h5>
+                        <h5 class="card-title mb-0"><i class="bi bi-file-earmark-text me-2"></i>Layanan Kategori: {{ $kategori->nama }}</h5>
                     </div>
                     <div class="card-body">
+                        @if($kategori->deskripsi)
+                        <div class="alert alert-info mb-4">
+                            <i class="bi bi-info-circle me-2"></i> {{ $kategori->deskripsi }}
+                        </div>
+                        @endif
+
                         @if($layanan->count() > 0)
                             <div class="row row-cols-1 row-cols-md-2 g-4">
                                 @foreach($layanan as $item)
@@ -121,7 +128,7 @@
                             </div>
                         @else
                             <div class="alert alert-info">
-                                <i class="bi bi-info-circle me-2"></i> Belum ada data layanan yang tersedia.
+                                <i class="bi bi-info-circle me-2"></i> Belum ada data layanan untuk kategori ini.
                             </div>
                         @endif
                     </div>
