@@ -1,8 +1,16 @@
 <x-bootstrap-layout>
+    @push('styles')
+        @include('profil.partials.styles')
+    @endpush
+
+    @include('profil.partials.hero', [
+        'title' => 'Struktur Organisasi Kelurahan Jelupang',
+        'subtitle' => 'Susunan organisasi dan pejabat di Kelurahan Jelupang'
+    ])
+
     <div class="container py-5">
         <div class="row">
             <div class="col-12">
-                <h1 class="display-5 fw-bold mb-4 text-primary">Struktur Organisasi Kelurahan Jelupang</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
@@ -13,35 +21,12 @@
             </div>
         </div>
 
-        <div class="row g-4 mt-2">
-            <div class="col-lg-4">
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Menu Profil</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="list-group">
-                            <a href="{{ route('profil') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-info-circle me-2"></i> Profil Umum
-                            </a>
-                            <a href="{{ route('profil.sejarah') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-clock-history me-2"></i> Sejarah
-                            </a>
-                            <a href="{{ route('profil.visi-misi') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-bullseye me-2"></i> Visi & Misi
-                            </a>
-                            <a href="{{ route('profil.struktur-organisasi') }}" class="list-group-item list-group-item-action active">
-                                <i class="bi bi-diagram-3 me-2"></i> Struktur Organisasi
-                            </a>
-                            <a href="{{ route('profil.kontak') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-envelope me-2"></i> Kontak
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <div class="row g-4">
+            <div class="col-lg-3">
+                @include('profil.partials.sidebar')
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div class="card shadow-sm">
                     <div class="card-header bg-primary text-white">
                         <h5 class="card-title mb-0"><i class="bi bi-diagram-3 me-2"></i> Struktur Organisasi</h5>
@@ -49,14 +34,19 @@
                     <div class="card-body">
                         @if ($profil && $profil->struktur_organisasi)
                             <div class="row g-4">
-                                @foreach($profil->struktur_organisasi as $position => $name)
+                                @foreach(json_decode($profil->struktur_organisasi) as $struktur)
                                 <div class="col-md-6">
-                                    <div class="card h-100 border-primary">
+                                    <div class="card h-100 border-primary border-top-0 border-end-0 border-bottom-0 border-3 shadow-sm">
                                         <div class="card-header bg-primary text-white">
-                                            <h5 class="card-title mb-0">{{ $position }}</h5>
+                                            <h5 class="card-title mb-0">{{ $struktur->jabatan }}</h5>
                                         </div>
-                                        <div class="card-body">
-                                            <p class="card-text fs-5">{{ $name }}</p>
+                                        <div class="card-body d-flex align-items-center">
+                                            @if(isset($struktur->foto))
+                                            <div class="me-3">
+                                                <img src="{{ asset($struktur->foto) }}" alt="{{ $struktur->nama }}" class="rounded-circle shadow-sm" width="80" height="80" onerror="this.src='https://placehold.co/80x80/00A67C/FFFFFF?text={{ substr($struktur->nama, 0, 1) }}'">
+                                            </div>
+                                            @endif
+                                            <p class="card-text fs-5 mb-0">{{ $struktur->nama }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -69,8 +59,8 @@
                                 <!-- Contoh struktur organisasi default -->
                                 <div class="row g-4 justify-content-center">
                                     <div class="col-md-8">
-                                        <div class="card mb-4 border-success">
-                                            <div class="card-header bg-success text-white text-center">
+                                        <div class="card mb-4 border-primary border-top-0 border-end-0 border-bottom-0 border-3 shadow-sm">
+                                            <div class="card-header bg-primary text-white text-center">
                                                 <h5 class="card-title mb-0">Lurah</h5>
                                             </div>
                                             <div class="card-body text-center">
@@ -80,8 +70,8 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="card mb-4 border-info">
-                                            <div class="card-header bg-info text-white text-center">
+                                        <div class="card mb-4 border-primary border-top-0 border-end-0 border-bottom-0 border-3 shadow-sm">
+                                            <div class="card-header bg-primary text-white text-center">
                                                 <h5 class="card-title mb-0">Sekretaris Lurah</h5>
                                             </div>
                                             <div class="card-body text-center">
@@ -91,8 +81,8 @@
                                     </div>
 
                                     <div class="col-md-6">
-                                        <div class="card mb-4 border-info">
-                                            <div class="card-header bg-info text-white text-center">
+                                        <div class="card mb-4 border-primary border-top-0 border-end-0 border-bottom-0 border-3 shadow-sm">
+                                            <div class="card-header bg-primary text-white text-center">
                                                 <h5 class="card-title mb-0">Bendahara</h5>
                                             </div>
                                             <div class="card-body text-center">
@@ -102,8 +92,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <div class="card border-warning">
-                                            <div class="card-header bg-warning text-dark text-center">
+                                        <div class="card border-primary border-top-0 border-end-0 border-bottom-0 border-3 shadow-sm">
+                                            <div class="card-header bg-primary text-white text-center">
                                                 <h5 class="card-title mb-0">Kasi Pemerintahan</h5>
                                             </div>
                                             <div class="card-body text-center">
@@ -113,8 +103,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <div class="card border-warning">
-                                            <div class="card-header bg-warning text-dark text-center">
+                                        <div class="card border-primary border-top-0 border-end-0 border-bottom-0 border-3 shadow-sm">
+                                            <div class="card-header bg-primary text-white text-center">
                                                 <h5 class="card-title mb-0">Kasi Kesra</h5>
                                             </div>
                                             <div class="card-body text-center">
@@ -124,8 +114,8 @@
                                     </div>
 
                                     <div class="col-md-4">
-                                        <div class="card border-warning">
-                                            <div class="card-header bg-warning text-dark text-center">
+                                        <div class="card border-primary border-top-0 border-end-0 border-bottom-0 border-3 shadow-sm">
+                                            <div class="card-header bg-primary text-white text-center">
                                                 <h5 class="card-title mb-0">Kasi Pelayanan</h5>
                                             </div>
                                             <div class="card-body text-center">

@@ -72,9 +72,7 @@
                                         @if($item->gambar)
                                             <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" width="80" height="60" class="rounded flex-shrink-0 object-fit-cover">
                                         @else
-                                            <div class="bg-light rounded flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 80px; height: 60px;">
-                                                <i class="bi bi-newspaper text-muted fs-4"></i>
-                                            </div>
+                                            <img src="https://placehold.co/80x60/00A67C/FFFFFF?text=Berita" alt="{{ $item->judul }}" width="80" height="60" class="rounded flex-shrink-0 object-fit-cover">
                                         @endif
                                         <div class="d-flex gap-2 w-100 justify-content-between">
                                             <div>

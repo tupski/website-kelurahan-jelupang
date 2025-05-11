@@ -83,9 +83,7 @@
                                             @if($item->gambar)
                                             <img src="{{ asset($item->gambar) }}" class="card-img-top" alt="{{ $item->nama }}" style="height: 180px; object-fit: cover;">
                                             @else
-                                            <div class="bg-light text-center py-5">
-                                                <i class="bi bi-shop fs-1 text-muted"></i>
-                                            </div>
+                                            <img src="https://placehold.co/600x400/00A67C/FFFFFF?text=UMKM+Jelupang" class="card-img-top" alt="{{ $item->nama }}" style="height: 180px; object-fit: cover;">
                                             @endif
                                             <div class="position-absolute top-0 start-0 m-2">
                                                 <span class="badge bg-primary">

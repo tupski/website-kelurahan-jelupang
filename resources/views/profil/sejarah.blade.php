@@ -1,8 +1,16 @@
 <x-bootstrap-layout>
+    @push('styles')
+        @include('profil.partials.styles')
+    @endpush
+
+    @include('profil.partials.hero', [
+        'title' => 'Sejarah Kelurahan Jelupang',
+        'subtitle' => 'Perjalanan dan perkembangan Kelurahan Jelupang dari masa ke masa'
+    ])
+
     <div class="container py-5">
         <div class="row">
             <div class="col-12">
-                <h1 class="display-5 fw-bold mb-4 text-primary">Sejarah Kelurahan Jelupang</h1>
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
@@ -13,46 +21,28 @@
             </div>
         </div>
 
-        <div class="row g-4 mt-2">
-            <div class="col-lg-4">
-                <div class="card shadow-sm mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Menu Profil</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="list-group">
-                            <a href="{{ route('profil') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-info-circle me-2"></i> Profil Umum
-                            </a>
-                            <a href="{{ route('profil.sejarah') }}" class="list-group-item list-group-item-action active">
-                                <i class="bi bi-clock-history me-2"></i> Sejarah
-                            </a>
-                            <a href="{{ route('profil.visi-misi') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-bullseye me-2"></i> Visi & Misi
-                            </a>
-                            <a href="{{ route('profil.struktur-organisasi') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-diagram-3 me-2"></i> Struktur Organisasi
-                            </a>
-                            <a href="{{ route('profil.kontak') }}" class="list-group-item list-group-item-action">
-                                <i class="bi bi-envelope me-2"></i> Kontak
-                            </a>
-                        </div>
-                    </div>
-                </div>
+        <div class="row g-4">
+            <div class="col-lg-3">
+                @include('profil.partials.sidebar')
             </div>
 
-            <div class="col-lg-8">
+            <div class="col-lg-9">
                 <div class="card shadow-sm">
-                    <div class="card-header bg-light">
-                        <h5 class="card-title mb-0">Sejarah Kelurahan</h5>
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0"><i class="bi bi-clock-history me-2"></i> Sejarah Kelurahan</h5>
                     </div>
                     <div class="card-body">
                         @if ($profil && $profil->sejarah)
                             <div class="mb-4">
-                                <img src="{{ asset('images/sejarah.jpg') }}" alt="Sejarah Kelurahan" class="img-fluid rounded mb-4" onerror="this.style.display='none'">
-
-                                <div class="fs-6">
-                                    {!! nl2br(e($profil->sejarah)) !!}
+                                <div class="row">
+                                    <div class="col-md-4 mb-4 mb-md-0">
+                                        <img src="{{ asset('images/sejarah.jpg') }}" alt="Sejarah Kelurahan" class="img-fluid rounded shadow-sm" onerror="this.src='https://placehold.co/600x400/00A67C/FFFFFF?text=Sejarah+Kelurahan'">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="fs-6">
+                                            {!! nl2br(e($profil->sejarah)) !!}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         @else

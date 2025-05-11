@@ -22,9 +22,7 @@
                                 @if($item->gambar)
                                     <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" class="card-img-top">
                                 @else
-                                    <div class="bg-light d-flex align-items-center justify-content-center" style="height: 200px;">
-                                        <i class="bi bi-newspaper text-secondary" style="font-size: 3rem;"></i>
-                                    </div>
+                                    <img src="https://placehold.co/600x400/00A67C/FFFFFF?text=Berita+Kelurahan" alt="{{ $item->judul }}" class="card-img-top">
                                 @endif
 
                                 <div class="card-body">

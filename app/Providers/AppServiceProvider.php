@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Barryvdh\Debugbar\Facades\Debugbar;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -32,5 +33,12 @@ class AppServiceProvider extends ServiceProvider
 
         // Menggunakan Bootstrap untuk pagination
         Paginator::useBootstrap();
+
+        // Mengaktifkan Debugbar jika dalam mode development
+        if (app()->environment('local')) {
+            Debugbar::enable();
+        } else {
+            Debugbar::disable();
+        }
     }
 }

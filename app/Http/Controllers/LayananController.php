@@ -11,13 +11,28 @@ class LayananController extends Controller
     /**
      * Menampilkan daftar layanan
      */
-    public function index()
+    public function index(Request $request)
     {
-        $layanan = Layanan::where('aktif', true)
-            ->orderBy('created_at', 'desc')
-            ->paginate(12);
+        $query = Layanan::where('aktif', true);
 
+        // Filter berdasarkan pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('deskripsi', 'like', "%{$search}%");
+            });
+        }
+
+        $layanan = $query->orderBy('created_at', 'desc')->paginate(12);
         $kategori = KategoriLayanan::where('aktif', true)->get();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('layanan.partials.layanan-list', compact('layanan'))->render(),
+                'pagination' => view('layanan.partials.pagination', compact('layanan'))->render(),
+            ]);
+        }
 
         return view('layanan.index', compact('layanan', 'kategori'));
     }
@@ -25,16 +40,31 @@ class LayananController extends Controller
     /**
      * Menampilkan layanan berdasarkan kategori
      */
-    public function kategori($slug)
+    public function kategori(Request $request, $slug)
     {
         $kategori = KategoriLayanan::where('slug', $slug)->where('aktif', true)->firstOrFail();
 
-        $layanan = Layanan::where('aktif', true)
-            ->where('kategori_layanan_id', $kategori->id)
-            ->orderBy('created_at', 'desc')
-            ->paginate(12);
+        $query = Layanan::where('aktif', true)
+            ->where('kategori_layanan_id', $kategori->id);
 
+        // Filter berdasarkan pencarian
+        if ($request->has('search') && !empty($request->search)) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('nama', 'like', "%{$search}%")
+                  ->orWhere('deskripsi', 'like', "%{$search}%");
+            });
+        }
+
+        $layanan = $query->orderBy('created_at', 'desc')->paginate(12);
         $semua_kategori = KategoriLayanan::where('aktif', true)->get();
+
+        if ($request->ajax()) {
+            return response()->json([
+                'html' => view('layanan.partials.layanan-list', compact('layanan'))->render(),
+                'pagination' => view('layanan.partials.pagination', compact('layanan'))->render(),
+            ]);
+        }
 
         return view('layanan.kategori', compact('layanan', 'kategori', 'semua_kategori'));
     }

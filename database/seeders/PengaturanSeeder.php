@@ -23,8 +23,8 @@ class PengaturanSeeder extends Seeder
         // Pengaturan Tampilan
         Pengaturan::set('logo', 'images/logo.png', 'tampilan', 'Logo', 'image');
         Pengaturan::set('favicon', 'images/favicon.ico', 'tampilan', 'Favicon', 'image');
-        Pengaturan::set('warna_utama', '#198754', 'tampilan', 'Warna Utama', 'color');
-        Pengaturan::set('warna_sekunder', '#343a40', 'tampilan', 'Warna Sekunder', 'color');
+        Pengaturan::set('warna_utama', '#00A67C', 'tampilan', 'Warna Utama', 'color');
+        Pengaturan::set('warna_sekunder', '#008F6B', 'tampilan', 'Warna Sekunder', 'color');
         Pengaturan::set('footer_text', '© ' . date('Y') . ' Kelurahan Jelupang. Hak Cipta Dilindungi.', 'tampilan', 'Teks Footer', 'text');
 
         // Pengaturan Media Sosial
@@ -37,6 +37,12 @@ class PengaturanSeeder extends Seeder
         Pengaturan::set('meta_keywords', 'kelurahan jelupang, serpong utara, tangerang selatan, banten, pelayanan publik', 'seo', 'Meta Keywords', 'textarea');
         Pengaturan::set('meta_description', 'Website Resmi Kelurahan Jelupang, Kecamatan Serpong Utara, Kota Tangerang Selatan. Melayani berbagai kebutuhan administrasi dan informasi warga.', 'seo', 'Meta Description', 'textarea');
         Pengaturan::set('google_analytics', '', 'seo', 'Google Analytics ID', 'text');
+
+        // Pengaturan Halaman
+        Pengaturan::set('judul_layanan', 'PELAYANAN DESA JELUPANG', 'halaman', 'Judul Halaman Layanan', 'text');
+        Pengaturan::set('deskripsi_layanan', 'Informasi lengkap tentang layanan administrasi dan fasilitas yang tersedia untuk warga desa', 'halaman', 'Deskripsi Halaman Layanan', 'textarea');
+        Pengaturan::set('judul_statistik', 'STATISTIK DESA JELUPANG', 'halaman', 'Judul Halaman Statistik', 'text');
+        Pengaturan::set('deskripsi_statistik', 'Data dan perkembangan desa dalam bentuk visualisasi yang informatif', 'halaman', 'Deskripsi Halaman Statistik', 'textarea');
 
         // Pengaturan Menu
         $menuUtama = [

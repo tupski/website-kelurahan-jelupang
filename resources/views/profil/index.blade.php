@@ -1,15 +1,12 @@
 <x-bootstrap-layout>
-    <!-- Header Section -->
-    <div class="hero-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8">
-                    <h1 class="display-5 fw-bold mb-3">Profil Kelurahan Jelupang</h1>
-                    <p class="fs-5">Informasi umum dan sejarah Kelurahan Jelupang</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    @push('styles')
+        @include('profil.partials.styles')
+    @endpush
+
+    @include('profil.partials.hero', [
+        'title' => 'Profil Kelurahan Jelupang',
+        'subtitle' => 'Informasi umum dan sejarah Kelurahan Jelupang'
+    ])
 
     <div class="container py-5">
         <div class="row">
@@ -153,7 +150,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4 mb-4 mb-md-0">
-                                <img src="{{ asset('images/kelurahan.jpg') }}" alt="Kelurahan Jelupang" class="img-fluid rounded shadow-sm" onerror="this.src='https://via.placeholder.com/300x200?text=Kelurahan+Jelupang'">
+                                <img src="{{ asset('images/kelurahan.jpg') }}" alt="Kelurahan Jelupang" class="img-fluid rounded shadow-sm" onerror="this.src='https://placehold.co/600x400/00A67C/FFFFFF?text=Kelurahan+Jelupang'">
                             </div>
                             <div class="col-md-8">
                                 <p class="card-text">
