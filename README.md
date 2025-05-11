@@ -1,61 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Website Kelurahan Jelupang
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Website resmi Kelurahan Jelupang yang dibangun menggunakan Laravel 12. Website ini menyediakan informasi tentang Kelurahan Jelupang, berita terkini, layanan, UMKM, dan statistik.
 
-## About Laravel
+## Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Beranda**: Halaman utama dengan informasi terkini dan penting
+- **Profil**: Informasi tentang Kelurahan Jelupang, visi misi, struktur organisasi, dan kontak
+- **Berita**: Berita dan pengumuman terkini dari Kelurahan Jelupang
+- **UMKM**: Daftar dan informasi UMKM yang ada di Kelurahan Jelupang
+- **Layanan**: Informasi tentang layanan yang disediakan oleh Kelurahan Jelupang
+- **Statistik**: Data statistik Kelurahan Jelupang
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Teknologi
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Framework**: Laravel 12
+- **Database**: MySQL
+- **Frontend**: Bootstrap 5
+- **Autentikasi**: Laravel Breeze (dimodifikasi)
 
-## Learning Laravel
+## Persyaratan Sistem
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP >= 8.2
+- MySQL >= 5.7
+- Composer
+- Web Server (Apache/Nginx)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Instalasi
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+1. Clone repository
+   ```bash
+   git clone https://github.com/tupski/website-kelurahan-jelupang.git
+   cd website-kelurahan-jelupang
+   ```
 
-## Laravel Sponsors
+2. Install dependensi
+   ```bash
+   composer install
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+3. Salin file .env.example menjadi .env
+   ```bash
+   cp .env.example .env
+   ```
 
-### Premium Partners
+4. Generate application key
+   ```bash
+   php artisan key:generate
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+5. Konfigurasi database di file .env
+   ```
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=kelurahandb
+   DB_USERNAME=root
+   DB_PASSWORD=mysql
+   ```
 
-## Contributing
+6. Jalankan migrasi dan seeder
+   ```bash
+   php artisan migrate:fresh --seed
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+7. Buat symbolic link untuk storage
+   ```bash
+   php artisan storage:link
+   ```
 
-## Code of Conduct
+8. Jalankan server development
+   ```bash
+   php artisan serve
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+9. Akses website melalui browser
+   ```
+   http://localhost:8000
+   ```
 
-## Security Vulnerabilities
+## Akses Admin
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Untuk mengakses panel admin, gunakan kredensial berikut:
 
-## License
+- URL: `http://localhost:8000/admin/login`
+- Email: `admin@kelurahanjelupang.go.id`
+- Password: `admin123`
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Struktur Folder
+
+- `app/` - Berisi kode aplikasi
+- `app/Http/Controllers/` - Controller untuk menangani request
+- `app/Models/` - Model database
+- `config/` - File konfigurasi
+- `database/` - Migrasi dan seeder database
+- `public/` - File publik (CSS, JS, gambar)
+- `resources/` - View, file bahasa, dan aset yang belum dikompilasi
+- `routes/` - Definisi route
+- `storage/` - File yang diupload, cache, dan log
+
+## Kontribusi
+
+Jika Anda ingin berkontribusi pada proyek ini, silakan ikuti langkah-langkah berikut:
+
+1. Fork repository
+2. Buat branch fitur baru (`git checkout -b fitur-baru`)
+3. Commit perubahan Anda (`git commit -m 'Menambahkan fitur baru'`)
+4. Push ke branch (`git push origin fitur-baru`)
+5. Buat Pull Request
+
+## Lisensi
+
+Hak Cipta © 2024 Kelurahan Jelupang. Seluruh hak dilindungi undang-undang.
