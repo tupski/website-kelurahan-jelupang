@@ -1,117 +1,166 @@
-<x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h1 class="text-2xl font-bold mb-6">Kontak Kelurahan Jelupang</h1>
-                    
-                    <div class="flex flex-col md:flex-row gap-8">
-                        <div class="md:w-1/3">
-                            <div class="bg-green-50 p-4 rounded-lg shadow mb-4">
-                                <h2 class="text-xl font-semibold text-green-800 mb-2">Menu Profil</h2>
-                                <ul class="space-y-2">
-                                    <li>
-                                        <a href="{{ route('profil') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Profil Umum
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.sejarah') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Sejarah
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.visi-misi') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Visi & Misi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.struktur-organisasi') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Struktur Organisasi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.kontak') }}" class="block p-2 bg-green-500 text-white rounded hover:bg-green-600">
-                                            Kontak
-                                        </a>
-                                    </li>
-                                </ul>
+<x-bootstrap-layout>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold mb-4 text-primary">Kontak Kelurahan Jelupang</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('profil') }}">Profil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Kontak</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Menu Profil</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="{{ route('profil') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-info-circle me-2"></i> Profil Umum
+                            </a>
+                            <a href="{{ route('profil.sejarah') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-clock-history me-2"></i> Sejarah
+                            </a>
+                            <a href="{{ route('profil.visi-misi') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-bullseye me-2"></i> Visi & Misi
+                            </a>
+                            <a href="{{ route('profil.struktur-organisasi') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-diagram-3 me-2"></i> Struktur Organisasi
+                            </a>
+                            <a href="{{ route('profil.kontak') }}" class="list-group-item list-group-item-action active">
+                                <i class="bi bi-envelope me-2"></i> Kontak
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0"><i class="bi bi-info-circle me-2"></i> Informasi Kontak</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                                            <i class="bi bi-geo-alt fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="fw-bold">Alamat</h5>
+                                        <p>{{ $profil->alamat ?? 'Jl. Raya Jelupang No. 123, Serpong Utara, Tangerang Selatan, Banten 15310' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                                            <i class="bi bi-telephone fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="fw-bold">Telepon</h5>
+                                        <p>{{ $profil->telepon ?? '(021) 1234-5678' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                                            <i class="bi bi-envelope fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="fw-bold">Email</h5>
+                                        <p>{{ $profil->email ?? 'info@kelurahanjelupang.go.id' }}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="d-flex">
+                                    <div class="flex-shrink-0">
+                                        <div class="bg-primary bg-opacity-10 p-3 rounded-circle text-primary">
+                                            <i class="bi bi-clock fs-4"></i>
+                                        </div>
+                                    </div>
+                                    <div class="flex-grow-1 ms-3">
+                                        <h5 class="fw-bold">Jam Kerja</h5>
+                                        <p class="mb-1">Senin - Jumat: 08.00 - 16.00 WIB</p>
+                                        <p class="mb-0">Sabtu, Minggu & Hari Libur: Tutup</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        
-                        <div class="md:w-2/3">
-                            <div class="bg-white p-6 rounded-lg shadow mb-6">
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Informasi Kontak</h2>
-                                
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    <div class="flex items-start">
-                                        <div class="bg-green-100 p-2 rounded-full mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h3 class="font-medium text-gray-700">Alamat</h3>
-                                            <p>{{ $profil->address ?? 'Jl. Raya Jelupang No. 123, Serpong Utara, Tangerang Selatan, Banten 15310' }}</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="flex items-start">
-                                        <div class="bg-green-100 p-2 rounded-full mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h3 class="font-medium text-gray-700">Telepon</h3>
-                                            <p>{{ $profil->phone ?? '(021) 1234-5678' }}</p>
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0"><i class="bi bi-geo-alt me-2"></i> Lokasi</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="ratio ratio-16x9 mb-4">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.7331455606383!2d106.6735!3d-6.2935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTcnMzYuNiJTIDEwNsKwNDAnMjQuNiJF!5e0!3m2!1sid!2sid!4v1620000000000!5m2!1sid!2sid"
+                                style="border:0;" allowfullscreen="" loading="lazy" class="rounded"></iframe>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i> Kelurahan Jelupang terletak di wilayah Kecamatan Serpong Utara, Kota Tangerang Selatan, Provinsi Banten.
+                        </div>
+
+                        <div class="mt-4">
+                            <h5 class="fw-bold mb-3">Hubungi Kami</h5>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="nama" placeholder="Nama Lengkap">
+                                            <label for="nama">Nama Lengkap</label>
                                         </div>
                                     </div>
-                                    
-                                    <div class="flex items-start">
-                                        <div class="bg-green-100 p-2 rounded-full mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                            </svg>
-                                        </div>
-                                        <div>
-                                            <h3 class="font-medium text-gray-700">Email</h3>
-                                            <p>{{ $profil->email ?? 'info@kelurahanjelupang.go.id' }}</p>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="email" placeholder="Email">
+                                            <label for="email">Email</label>
                                         </div>
                                     </div>
-                                    
-                                    <div class="flex items-start">
-                                        <div class="bg-green-100 p-2 rounded-full mr-3">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="subjek" placeholder="Subjek">
+                                            <label for="subjek">Subjek</label>
                                         </div>
-                                        <div>
-                                            <h3 class="font-medium text-gray-700">Jam Kerja</h3>
-                                            <p>Senin - Jumat: 08.00 - 16.00 WIB</p>
-                                            <p>Sabtu, Minggu & Hari Libur: Tutup</p>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" id="pesan" style="height: 150px" placeholder="Pesan"></textarea>
+                                            <label for="pesan">Pesan</label>
                                         </div>
+                                    </div>
+                                    <div class="col-12 text-end">
+                                        <button type="submit" class="btn btn-primary">
+                                            <i class="bi bi-send me-2"></i> Kirim Pesan
+                                        </button>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <div class="bg-white p-6 rounded-lg shadow">
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Lokasi</h2>
-                                
-                                <div class="aspect-w-16 aspect-h-9 mb-4">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.7331455606383!2d106.6735!3d-6.2935!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwMTcnMzYuNiJTIDEwNsKwNDAnMjQuNiJF!5e0!3m2!1sid!2sid!4v1620000000000!5m2!1sid!2sid" 
-                                        width="100%" height="300" style="border:0;" allowfullscreen="" loading="lazy" class="rounded-lg"></iframe>
-                                </div>
-                                
-                                <p class="text-gray-600">
-                                    Kelurahan Jelupang terletak di wilayah Kecamatan Serpong Utara, Kota Tangerang Selatan, Provinsi Banten.
-                                </p>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-bootstrap-layout>

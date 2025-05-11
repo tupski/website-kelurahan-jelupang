@@ -110,4 +110,4 @@ Jika Anda ingin berkontribusi pada proyek ini, silakan ikuti langkah-langkah ber
 
 ## Lisensi
 
-Hak Cipta © 2024 Kelurahan Jelupang. Seluruh hak dilindungi undang-undang.
+Hak Cipta © 2025 Kelurahan Jelupang. Seluruh hak dilindungi undang-undang.

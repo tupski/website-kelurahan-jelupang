@@ -1,60 +1,68 @@
-<x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h1 class="text-2xl font-bold mb-6">Sejarah Kelurahan Jelupang</h1>
-                    
-                    <div class="flex flex-col md:flex-row gap-8">
-                        <div class="md:w-1/3">
-                            <div class="bg-green-50 p-4 rounded-lg shadow mb-4">
-                                <h2 class="text-xl font-semibold text-green-800 mb-2">Menu Profil</h2>
-                                <ul class="space-y-2">
-                                    <li>
-                                        <a href="{{ route('profil') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Profil Umum
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.sejarah') }}" class="block p-2 bg-green-500 text-white rounded hover:bg-green-600">
-                                            Sejarah
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.visi-misi') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Visi & Misi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.struktur-organisasi') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Struktur Organisasi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.kontak') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Kontak
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+<x-bootstrap-layout>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold mb-4 text-primary">Sejarah Kelurahan Jelupang</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('profil') }}">Profil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Sejarah</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Menu Profil</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="{{ route('profil') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-info-circle me-2"></i> Profil Umum
+                            </a>
+                            <a href="{{ route('profil.sejarah') }}" class="list-group-item list-group-item-action active">
+                                <i class="bi bi-clock-history me-2"></i> Sejarah
+                            </a>
+                            <a href="{{ route('profil.visi-misi') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-bullseye me-2"></i> Visi & Misi
+                            </a>
+                            <a href="{{ route('profil.struktur-organisasi') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-diagram-3 me-2"></i> Struktur Organisasi
+                            </a>
+                            <a href="{{ route('profil.kontak') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-envelope me-2"></i> Kontak
+                            </a>
                         </div>
-                        
-                        <div class="md:w-2/3">
-                            <div class="bg-white p-6 rounded-lg shadow">
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Sejarah Kelurahan</h2>
-                                
-                                @if ($profil && $profil->history)
-                                <div class="prose max-w-none">
-                                    {!! nl2br(e($profil->history)) !!}
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-light">
+                        <h5 class="card-title mb-0">Sejarah Kelurahan</h5>
+                    </div>
+                    <div class="card-body">
+                        @if ($profil && $profil->sejarah)
+                            <div class="mb-4">
+                                <img src="{{ asset('images/sejarah.jpg') }}" alt="Sejarah Kelurahan" class="img-fluid rounded mb-4" onerror="this.style.display='none'">
+
+                                <div class="fs-6">
+                                    {!! nl2br(e($profil->sejarah)) !!}
                                 </div>
-                                @else
-                                <p class="text-gray-600">Informasi sejarah kelurahan belum tersedia.</p>
-                                @endif
                             </div>
-                        </div>
+                        @else
+                            <div class="alert alert-info">
+                                <i class="bi bi-info-circle me-2"></i> Informasi sejarah kelurahan belum tersedia.
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-bootstrap-layout>

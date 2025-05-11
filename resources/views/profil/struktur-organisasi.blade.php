@@ -1,101 +1,148 @@
-<x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <h1 class="text-2xl font-bold mb-6">Struktur Organisasi Kelurahan Jelupang</h1>
-                    
-                    <div class="flex flex-col md:flex-row gap-8">
-                        <div class="md:w-1/3">
-                            <div class="bg-green-50 p-4 rounded-lg shadow mb-4">
-                                <h2 class="text-xl font-semibold text-green-800 mb-2">Menu Profil</h2>
-                                <ul class="space-y-2">
-                                    <li>
-                                        <a href="{{ route('profil') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Profil Umum
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.sejarah') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Sejarah
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.visi-misi') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Visi & Misi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.struktur-organisasi') }}" class="block p-2 bg-green-500 text-white rounded hover:bg-green-600">
-                                            Struktur Organisasi
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('profil.kontak') }}" class="block p-2 bg-white text-green-700 rounded border border-green-200 hover:bg-green-100">
-                                            Kontak
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+<x-bootstrap-layout>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold mb-4 text-primary">Struktur Organisasi Kelurahan Jelupang</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('profil') }}">Profil</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Struktur Organisasi</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-2">
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Menu Profil</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            <a href="{{ route('profil') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-info-circle me-2"></i> Profil Umum
+                            </a>
+                            <a href="{{ route('profil.sejarah') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-clock-history me-2"></i> Sejarah
+                            </a>
+                            <a href="{{ route('profil.visi-misi') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-bullseye me-2"></i> Visi & Misi
+                            </a>
+                            <a href="{{ route('profil.struktur-organisasi') }}" class="list-group-item list-group-item-action active">
+                                <i class="bi bi-diagram-3 me-2"></i> Struktur Organisasi
+                            </a>
+                            <a href="{{ route('profil.kontak') }}" class="list-group-item list-group-item-action">
+                                <i class="bi bi-envelope me-2"></i> Kontak
+                            </a>
                         </div>
-                        
-                        <div class="md:w-2/3">
-                            <div class="bg-white p-6 rounded-lg shadow">
-                                <h2 class="text-xl font-semibold text-gray-800 mb-4">Struktur Organisasi</h2>
-                                
-                                @if ($profil && $profil->organization_structure)
-                                <div class="prose max-w-none">
-                                    @foreach($profil->organization_structure as $position => $name)
-                                    <div class="mb-4 p-4 border rounded-lg">
-                                        <h3 class="font-medium text-gray-700">{{ $position }}</h3>
-                                        <p>{{ $name }}</p>
-                                    </div>
-                                    @endforeach
-                                </div>
-                                @else
-                                <div class="text-center py-8">
-                                    <p class="text-gray-600 mb-4">Struktur organisasi belum tersedia.</p>
-                                    
-                                    <!-- Contoh struktur organisasi default -->
-                                    <div class="max-w-lg mx-auto">
-                                        <div class="bg-green-100 p-4 rounded-lg shadow-sm mb-4 text-center">
-                                            <h3 class="font-bold">Lurah</h3>
-                                            <p>Nama Lurah</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0"><i class="bi bi-diagram-3 me-2"></i> Struktur Organisasi</h5>
+                    </div>
+                    <div class="card-body">
+                        @if ($profil && $profil->struktur_organisasi)
+                            <div class="row g-4">
+                                @foreach($profil->struktur_organisasi as $position => $name)
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-primary">
+                                        <div class="card-header bg-primary text-white">
+                                            <h5 class="card-title mb-0">{{ $position }}</h5>
                                         </div>
-                                        
-                                        <div class="grid grid-cols-2 gap-4 mb-4">
-                                            <div class="bg-blue-100 p-4 rounded-lg shadow-sm text-center">
-                                                <h3 class="font-bold">Sekretaris Lurah</h3>
-                                                <p>Nama Sekretaris</p>
-                                            </div>
-                                            <div class="bg-blue-100 p-4 rounded-lg shadow-sm text-center">
-                                                <h3 class="font-bold">Bendahara</h3>
-                                                <p>Nama Bendahara</p>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="grid grid-cols-3 gap-4">
-                                            <div class="bg-yellow-100 p-4 rounded-lg shadow-sm text-center">
-                                                <h3 class="font-bold">Kasi Pemerintahan</h3>
-                                                <p>Nama Kasi</p>
-                                            </div>
-                                            <div class="bg-yellow-100 p-4 rounded-lg shadow-sm text-center">
-                                                <h3 class="font-bold">Kasi Kesra</h3>
-                                                <p>Nama Kasi</p>
-                                            </div>
-                                            <div class="bg-yellow-100 p-4 rounded-lg shadow-sm text-center">
-                                                <h3 class="font-bold">Kasi Pelayanan</h3>
-                                                <p>Nama Kasi</p>
-                                            </div>
+                                        <div class="card-body">
+                                            <p class="card-text fs-5">{{ $name }}</p>
                                         </div>
                                     </div>
                                 </div>
-                                @endif
+                                @endforeach
                             </div>
-                        </div>
+                        @else
+                            <div class="text-center py-4">
+                                <p class="text-muted mb-4">Struktur organisasi belum tersedia.</p>
+
+                                <!-- Contoh struktur organisasi default -->
+                                <div class="row g-4 justify-content-center">
+                                    <div class="col-md-8">
+                                        <div class="card mb-4 border-success">
+                                            <div class="card-header bg-success text-white text-center">
+                                                <h5 class="card-title mb-0">Lurah</h5>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <p class="card-text">Nama Lurah</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="card mb-4 border-info">
+                                            <div class="card-header bg-info text-white text-center">
+                                                <h5 class="card-title mb-0">Sekretaris Lurah</h5>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <p class="card-text">Nama Sekretaris</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="card mb-4 border-info">
+                                            <div class="card-header bg-info text-white text-center">
+                                                <h5 class="card-title mb-0">Bendahara</h5>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <p class="card-text">Nama Bendahara</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="card border-warning">
+                                            <div class="card-header bg-warning text-dark text-center">
+                                                <h5 class="card-title mb-0">Kasi Pemerintahan</h5>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <p class="card-text">Nama Kasi</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="card border-warning">
+                                            <div class="card-header bg-warning text-dark text-center">
+                                                <h5 class="card-title mb-0">Kasi Kesra</h5>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <p class="card-text">Nama Kasi</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <div class="card border-warning">
+                                            <div class="card-header bg-warning text-dark text-center">
+                                                <h5 class="card-title mb-0">Kasi Pelayanan</h5>
+                                            </div>
+                                            <div class="card-body text-center">
+                                                <p class="card-text">Nama Kasi</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info mt-4">
+                                    <i class="bi bi-info-circle me-2"></i> Struktur organisasi di atas hanya contoh. Data sebenarnya akan ditampilkan setelah diisi oleh admin.
+                                </div>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-bootstrap-layout>
