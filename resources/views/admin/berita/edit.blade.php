@@ -59,11 +59,34 @@
     </div>
 
     @push('scripts')
+    <!-- CKEditor CDN -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/40.0.0/classic/ckeditor.js"></script>
     <script>
-        // Inisialisasi editor WYSIWYG jika diperlukan
         document.addEventListener('DOMContentLoaded', function() {
-            // Tambahkan kode inisialisasi editor di sini jika diperlukan
+            ClassicEditor
+                .create(document.querySelector('#konten'), {
+                    toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', '|', 'outdent', 'indent', '|', 'blockQuote', 'insertTable', 'mediaEmbed', 'undo', 'redo'],
+                    heading: {
+                        options: [
+                            { model: 'paragraph', title: 'Paragraf', class: 'ck-heading_paragraph' },
+                            { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                            { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                            { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+                        ]
+                    }
+                })
+                .then(editor => {
+                    console.log('CKEditor initialized successfully');
+                })
+                .catch(error => {
+                    console.error('Error initializing CKEditor:', error);
+                });
         });
     </script>
+    <style>
+        .ck-editor__editable_inline {
+            min-height: 300px;
+        }
+    </style>
     @endpush
 </x-admin-bootstrap-layout>

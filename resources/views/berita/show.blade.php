@@ -1,97 +1,196 @@
-<x-app-layout>
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <div class="mb-6">
-                        <a href="{{ route('berita') }}" class="inline-flex items-center text-green-600 hover:text-green-800">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                            Kembali ke Daftar Berita
-                        </a>
+<x-bootstrap-layout>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{{ route('beranda') }}">Beranda</a></li>
+                        <li class="breadcrumb-item"><a href="{{ route('berita') }}">Berita</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">{{ $berita->judul }}</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-body">
+                        <article>
+                            <h1 class="display-5 fw-bold mb-3">{{ $berita->judul }}</h1>
+
+                            <div class="d-flex align-items-center text-muted mb-4">
+                                <div class="d-flex align-items-center me-3">
+                                    <i class="bi bi-calendar3 me-2"></i>
+                                    <span>{{ $berita->created_at->format('d M Y') }}</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <i class="bi bi-person me-2"></i>
+                                    <span>{{ $berita->admin->nama ?? 'Admin' }}</span>
+                                </div>
+                            </div>
+
+                            @if($berita->gambar)
+                                <div class="mb-4">
+                                    <img src="{{ asset($berita->gambar) }}" alt="{{ $berita->judul }}" class="img-fluid rounded">
+                                </div>
+                            @endif
+
+                            <div class="berita-content mb-4">
+                                {!! $berita->konten !!}
+                            </div>
+
+                            <div class="d-flex align-items-center justify-content-between border-top pt-4 mt-4">
+                                <div class="d-flex align-items-center">
+                                    <span class="text-muted me-3">Bagikan:</span>
+                                    <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($berita->judul) }}" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+                                        <i class="bi bi-twitter"></i>
+                                    </a>
+                                    <a href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(url()->current()) }}" target="_blank" class="btn btn-sm btn-outline-primary me-2">
+                                        <i class="bi bi-facebook"></i>
+                                    </a>
+                                    <a href="https://api.whatsapp.com/send?text={{ urlencode($berita->judul . ' ' . url()->current()) }}" target="_blank" class="btn btn-sm btn-outline-success">
+                                        <i class="bi bi-whatsapp"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
                     </div>
-                    
-                    <article>
-                        <h1 class="text-3xl font-bold mb-4">{{ $berita->title }}</h1>
-                        
-                        <div class="flex items-center text-gray-500 mb-6">
-                            <span>{{ $berita->created_at->format('d M Y') }}</span>
-                            <span class="mx-2">•</span>
-                            <span>{{ $berita->user->name }}</span>
-                        </div>
-                        
-                        @if($berita->image)
-                            <div class="mb-6">
-                                <img src="{{ asset($berita->image) }}" alt="{{ $berita->title }}" class="w-full max-h-96 object-cover rounded-lg">
-                            </div>
-                        @endif
-                        
-                        <div class="prose max-w-none mb-8">
-                            {!! nl2br(e($berita->content)) !!}
-                        </div>
-                        
-                        <div class="flex items-center justify-between border-t border-gray-200 pt-6">
-                            <div class="flex items-center">
-                                <span class="text-gray-600 mr-2">Bagikan:</span>
-                                <a href="#" class="text-blue-600 hover:text-blue-800 mx-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" class="text-blue-800 hover:text-blue-900 mx-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-                                    </svg>
-                                </a>
-                                <a href="#" class="text-green-600 hover:text-green-700 mx-1">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                                        <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                    </article>
-                    
-                    @if($beritaTerkait->count() > 0)
-                        <div class="mt-12">
-                            <h2 class="text-2xl font-bold mb-6">Berita Terkait</h2>
-                            
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="card shadow-sm mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Berita Terbaru</h5>
+                    </div>
+                    <div class="card-body">
+                        @if($beritaTerkait->count() > 0)
+                            <div class="list-group list-group-flush">
                                 @foreach($beritaTerkait as $item)
-                                    <div class="bg-white rounded-lg shadow overflow-hidden">
-                                        @if($item->image)
-                                            <img src="{{ asset($item->image) }}" alt="{{ $item->title }}" class="w-full h-40 object-cover">
+                                    <a href="{{ route('berita.detail', $item->slug) }}" class="list-group-item list-group-item-action d-flex gap-3 py-3">
+                                        @if($item->gambar)
+                                            <img src="{{ asset($item->gambar) }}" alt="{{ $item->judul }}" width="80" height="60" class="rounded flex-shrink-0 object-fit-cover">
                                         @else
-                                            <div class="w-full h-40 bg-gray-200 flex items-center justify-center">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                                                </svg>
+                                            <div class="bg-light rounded flex-shrink-0 d-flex align-items-center justify-content-center" style="width: 80px; height: 60px;">
+                                                <i class="bi bi-newspaper text-muted fs-4"></i>
                                             </div>
                                         @endif
-                                        
-                                        <div class="p-4">
-                                            <h3 class="text-lg font-semibold mb-2">
-                                                <a href="{{ route('berita.detail', $item->slug) }}" class="text-gray-800 hover:text-green-600">
-                                                    {{ $item->title }}
-                                                </a>
-                                            </h3>
-                                            
-                                            <div class="text-sm text-gray-500 mb-2">
-                                                {{ $item->created_at->format('d M Y') }}
+                                        <div class="d-flex gap-2 w-100 justify-content-between">
+                                            <div>
+                                                <h6 class="mb-0">{{ Str::limit($item->judul, 50) }}</h6>
+                                                <p class="mb-0 opacity-75 small">{{ $item->created_at->format('d M Y') }}</p>
                                             </div>
-                                            
-                                            <a href="{{ route('berita.detail', $item->slug) }}" class="text-green-600 hover:text-green-800 font-medium text-sm">
-                                                Baca selengkapnya →
-                                            </a>
                                         </div>
-                                    </div>
+                                    </a>
                                 @endforeach
                             </div>
+                        @else
+                            <div class="alert alert-info mb-0">
+                                <i class="bi bi-info-circle me-2"></i> Belum ada berita terkait.
+                            </div>
+                        @endif
+                    </div>
+                </div>
+
+                <div class="card shadow-sm">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="card-title mb-0">Kategori</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Pengumuman
+                                <span class="badge bg-primary rounded-pill">12</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Kegiatan
+                                <span class="badge bg-primary rounded-pill">8</span>
+                            </a>
+                            <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                Informasi
+                                <span class="badge bg-primary rounded-pill">5</span>
+                            </a>
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+
+    @push('scripts')
+    <style>
+        .berita-content {
+            line-height: 1.7;
+        }
+
+        .berita-content h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .berita-content h2 {
+            font-size: 1.75rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .berita-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .berita-content p {
+            margin-bottom: 1rem;
+        }
+
+        .berita-content ul,
+        .berita-content ol {
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .berita-content img {
+            max-width: 100%;
+            height: auto;
+            margin: 1rem 0;
+            border-radius: 0.375rem;
+        }
+
+        .berita-content blockquote {
+            border-left: 4px solid #0d6efd;
+            padding-left: 1rem;
+            font-style: italic;
+            margin: 1rem 0;
+            color: #6c757d;
+        }
+
+        .berita-content a {
+            color: #0d6efd;
+            text-decoration: none;
+        }
+
+        .berita-content a:hover {
+            text-decoration: underline;
+        }
+
+        .berita-content table {
+            width: 100%;
+            margin-bottom: 1rem;
+            border-collapse: collapse;
+        }
+
+        .berita-content table th,
+        .berita-content table td {
+            padding: 0.5rem;
+            border: 1px solid #dee2e6;
+        }
+
+        .berita-content table th {
+            background-color: #f8f9fa;
+        }
+    </style>
+    @endpush
+</x-bootstrap-layout>
